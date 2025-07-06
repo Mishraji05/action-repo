@@ -17,7 +17,7 @@ jobs:
       - name: Send Webhook
         uses: actions/http-request@v3
         with:
-          url: 'http://your-flask-app-url/webhook'
+          url: 'http://your-flask-app-url/webhook'   # Replace this with your actual Flask app URL
           method: 'POST'
           data: |
             {
