@@ -1,0 +1,28 @@
+
+name: GitHub Webhook Trigger
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, closed]
+  merge_group:
+    types: [created, closed]
+
+jobs:
+  send_webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Webhook
+        uses: actions/http-request@v3
+        with:
+          url: 'http://your-flask-app-url/webhook'
+          method: 'POST'
+          data: |
+            {
+              "event_type": "${{ github.event_name }}",
+              "repository_name": "${{ github.repository }}",
+              "ref": "${{ github.event.ref }}"
+            }
+          headers: '{"Content-Type": "application/json"}'
